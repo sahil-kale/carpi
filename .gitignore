@@ -205,3 +205,56 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+# ROS2 stuff
+build/
+install/
+log/
+
+# Colcon metadata
+.colcon/
+*.log
+
+# ROS 2 launch and bag files
+*.bag
+*.db3
+*.sqlite3
+*.pyc
+*.pyo
+__pycache__/
+
+# Python virtual environments
+venv/
+.env/
+.envrc
+*.env
+
+# VSCode files
+.vscode/
+
+# CLion/JetBrains files
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ROS-generated folders
+*.egg-info/
+.deps/
+
+# CMake and catkin build files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Other
+*.swp
+*.swo
+*.bak
