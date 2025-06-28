@@ -1,0 +1,1 @@
+docker build -t ros-dev-custom ./docker
