@@ -534,7 +534,9 @@ class Board:
                             self.state = PacketControllerState.PACKET_CONTROLLER_STATE_STARTBYTE1
                             continue
             else:
-                time.sleep(0.01)
+                # flush the buffer
+                self.port.flushInput()
+                time.sleep(0.001)
         self.port.close()
         print("END...")
 
@@ -589,27 +591,27 @@ if __name__ == "__main__":
     board = Board()
     board.enable_reception()
     print("START...")
-    #time.sleep(2)
+    time.sleep(2)
     board.set_led(0.1, 0.9, 1,1)
-    #board.set_led(0.1, 0.9, 5,2)
+    board.set_led(0.1, 0.9, 5,2)
     board.set_buzzer(1900, 0.05, 0.01, 1)
-    #time.sleep(1)
-    #board.set_buzzer(1900, 0.05, 0.01, 1)
-    #time.sleep(1)
-    #board.set_rgb([[2, 100, 0, 0],[1,100,0,0]])
-    #time.sleep(0.5)
-    #board.set_rgb([[2, 0, 0, 255],[1,0,0,255]])
-    #time.sleep(0.5)
-    #board.set_rgb([[2, 255, 0, 0],[1,255,0,0]])
-    #time.sleep(0.5)
-    #board.set_rgb([[1, 0, 255, 0]])
+    time.sleep(1)
+    board.set_buzzer(1900, 0.05, 0.01, 1)
+    time.sleep(1)
+    board.set_rgb([[2, 100, 0, 0],[1,100,0,0]])
+    time.sleep(0.5)
+    board.set_rgb([[2, 0, 0, 255],[1,0,0,255]])
+    time.sleep(0.5)
+    board.set_rgb([[2, 255, 0, 0],[1,255,0,0]])
+    time.sleep(0.5)
+    board.set_rgb([[1, 0, 255, 0]])
     #board.set_motor_speed([[1, -0.6], [2, -0.6], [3, 0.6], [4, 0.6]])
     #time.sleep(1)
     #board.set_motor_speed([[1, 0], [2, 0], [3, 0], [4, 0]])
     
     #bus_servo_test(board)
     #board.bus_servo_set_position(1, [[1, 700], [2, 500]])
-    # pwm_servo_test(board)
+    pwm_servo_test(board)
     # last_time = time.time()
     while True:
         try:
