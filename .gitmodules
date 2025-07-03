@@ -1,0 +1,3 @@
+[submodule "submodules/carpi-rrc-private"]
+	path = submodules/carpi-rrc-private
+	url = git@github.com:sahil-kale/carpi-rrc-private.git
