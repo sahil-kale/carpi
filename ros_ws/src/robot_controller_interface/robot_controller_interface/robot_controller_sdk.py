@@ -36,7 +36,8 @@ class PacketFunction(enum.IntEnum):
     PACKET_FUNC_SBUS = 9  # 航模遥控获取(obtain model aircraft remote control)
     PACKET_FUNC_OLED = 10  # OLED 显示内容设置(set OLED display content)
     PACKET_FUNC_RGB = 11  # RGB
-    PACKET_FUNC_NONE = 12
+    PACKET_FUNC_MOTOR_RPS_ACTUAL = 12 # actual rev/s of the motors
+    PACKET_FUNC_NONE = 13
 
 class PacketReportKeyEvents(enum.IntEnum):
     # 按键的不同状态(different button status)
@@ -122,6 +123,7 @@ class Board:
         self.imu_queue = queue.Queue(maxsize=1)
         self.gamepad_queue = queue.Queue(maxsize=1)
         self.sbus_queue = queue.Queue(maxsize=1)
+        self.motor_rps_actual_queue = queue.Queue(maxsize=1)
 
         self.parsers = {
             PacketFunction.PACKET_FUNC_SYS: self.packet_report_sys,
@@ -130,7 +132,8 @@ class Board:
             PacketFunction.PACKET_FUNC_GAMEPAD: self.packet_report_gamepad,
             PacketFunction.PACKET_FUNC_BUS_SERVO: self.packet_report_serial_servo,
             PacketFunction.PACKET_FUNC_SBUS: self.packet_report_sbus,
-            PacketFunction.PACKET_FUNC_PWM_SERVO: self.packet_report_pwm_servo
+            PacketFunction.PACKET_FUNC_PWM_SERVO: self.packet_report_pwm_servo,
+            PacketFunction.PACKET_FUNC_MOTOR_RPS_ACTUAL: self.packet_report_motor_rps_actual
         }
 
         time.sleep(0.5)
@@ -152,6 +155,12 @@ class Board:
     def packet_report_imu(self, data):
         try:
             self.imu_queue.put_nowait(data)
+        except queue.Full:
+            pass
+
+    def packet_report_motor_rps_actual(self, data):
+        try:
+            self.motor_rps_actual_queue.put_nowait(data)
         except queue.Full:
             pass
 
@@ -221,6 +230,18 @@ class Board:
                 return None
         else:
             print('get_imu enable reception first!')
+            return None
+
+    def get_motor_rps_actual(self):
+        if self.enable_recv:
+            try:
+                # rpsActual[0], rpsActual[1], rpsActual[2], rpsActual[3]
+                rps_actual = struct.unpack('<4f', self.motor_rps_actual_queue.get(block=False))
+                return rps_actual
+            except queue.Empty:
+                return None
+        else:
+            print('get_motor_rps_actual enable reception first!')
             return None
 
     def get_gamepad(self):
@@ -609,7 +630,7 @@ if __name__ == "__main__":
     board.set_rgb([[2, 255, 0, 0],[1,255,0,0]])
     time.sleep(0.5)
     board.set_rgb([[1, 0, 255, 0]])
-    #board.set_motor_speed([[1, -0.6], [2, -0.6], [3, 0.6], [4, 0.6]])
+    # board.set_motor_speed([[1, -0.6], [2, 10], [3, 0.6], [4, -7]])
     #time.sleep(1)
     #board.set_motor_speed([[1, 0], [2, 0], [3, 0], [4, 0]])
     
@@ -622,8 +643,15 @@ if __name__ == "__main__":
             # board.set_buzzer(3000, 0.05, 0.01, 1)
             res = board.get_imu()
             if res is not None:
+                print("IMU: ", end='')
                 for item in res:
                    print("  {: .8f} ".format(item), end='')
+                print()
+            res = board.get_motor_rps_actual()
+            if res is not None:
+                print("Motor RPS Actual: ", end='')
+                for item in res:
+                    print("  {: .8f} ".format(item), end='')
                 print()
             # res = board.get_button()
             # if res is not None:
@@ -637,7 +665,7 @@ if __name__ == "__main__":
                 # print(res)
             # res = board.get_battery()
             # if res is not None:
-                # print(res)
+            #     print(res)
             #board.set_rgb([[2, 50, 0, 0],[1,50,0,0]])
             #time.sleep(0.05)
             #board.set_rgb([[2, 0, 50, 0],[1,0,50,0]])
