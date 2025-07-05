@@ -1,7 +1,10 @@
 FROM ros:humble-perception
 
+COPY scripts/requirements.txt /tmp/requirements.txt
+
 # Install extra ROS 2 packages
 RUN apt update && apt install -y \
+    python3-pip \
     ros-humble-demo-nodes-cpp \
     ros-humble-demo-nodes-py \
     ros-humble-rviz2 \
@@ -21,3 +24,6 @@ USER rosuser
 
 # Set working directory inside container
 WORKDIR /carpi
+
+# Install Python dependencies
+RUN pip install --user -r /tmp/requirements.txt
