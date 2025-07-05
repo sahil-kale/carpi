@@ -19,6 +19,11 @@ ARG LOCAL_GROUP_ID=1000
 RUN groupadd -g ${LOCAL_GROUP_ID} rosuser && \
     useradd -u ${LOCAL_USER_ID} -g rosuser -m rosuser
 
+# install sudo and give the rosuser passwordless sudo access
+RUN apt update && apt install -y sudo && \
+    usermod -aG sudo rosuser && \
+    echo "rosuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && apt clean
+
 # Switch to the new user
 USER rosuser
 

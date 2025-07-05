@@ -602,7 +602,7 @@ def bus_servo_test(board):
 
 def pwm_servo_test(board):
     servo_id = 1
-    board.pwm_servo_set_position(0.5, [[servo_id, 500]])
+    board.pwm_servo_set_position(0.5, [[servo_id, 1000]])
     time.sleep(1)
     board.pwm_servo_set_offset(servo_id, 0)
     time.sleep(1)
