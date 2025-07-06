@@ -81,9 +81,9 @@ class RobotControllerInterface(Node):
         msg.imu.linear_acceleration.x = ax * GRAVITY_M_PER_S_SQUARED
         msg.imu.linear_acceleration.y = ay * GRAVITY_M_PER_S_SQUARED
         msg.imu.linear_acceleration.z = az * GRAVITY_M_PER_S_SQUARED
-        msg.imu.angular_velocity.x = gx
-        msg.imu.angular_velocity.y = gy
-        msg.imu.angular_velocity.z = gz
+        msg.imu.angular_velocity.x = np.radians(gx)
+        msg.imu.angular_velocity.y = np.radians(gy)
+        msg.imu.angular_velocity.z = np.radians(gz)
 
         msg.imu.orientation_covariance = [0.01, 0.0, 0.0,
                                           0.0, 0.01, 0.0,
