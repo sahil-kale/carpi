@@ -10,9 +10,6 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name + 'msg', ['msg/RobotCommandRaw.msg']),
-        ('share/' + package_name + 'msg', ['msg/BuzzerCommand.msg']),
-        ('share/' + package_name + 'msg', ['msg/LedCommand.msg']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -23,7 +20,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'robot_controller_interface_node = robot_controller_interface.robot_controller_interface_node:main',
         ],
     },
 )

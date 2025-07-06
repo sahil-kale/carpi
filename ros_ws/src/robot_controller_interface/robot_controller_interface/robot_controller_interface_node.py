@@ -2,7 +2,7 @@
 
 import rclpy
 from rclpy.node import Node
-from robot_controller_interface.msg import RobotCommandRaw
+from robot_controller_interface_msgs.msg import RobotCommandRaw
 from robot_controller_sdk import Board
 import numpy as np
 
