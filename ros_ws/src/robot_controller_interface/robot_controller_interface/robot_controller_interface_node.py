@@ -32,7 +32,7 @@ class RobotControllerInterface(Node):
         )
     
     def command_callback(self, msg: RobotCommandRaw):
-        self.get_logger().debug(f"Received command: {msg.command}")
+        self.get_logger().debug(f"Received command: {msg}")
 
         SERVO_PWM_MIN_US = 1000
         SERVO_PWM_MAX_US = 2000
@@ -63,9 +63,8 @@ def main(args=None):
     node = RobotControllerInterface()
     try: 
         rclpy.spin(node)
-    except KeyboardInterrupt:
-        node.shutdown()
     finally:
+        node.shutdown()
         node.destroy_node()
         rclpy.shutdown()
 

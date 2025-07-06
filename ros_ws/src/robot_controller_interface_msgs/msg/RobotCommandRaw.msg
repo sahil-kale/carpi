@@ -1,3 +1,3 @@
 float32 cmd_wheel_rps
-float32 cmd_steer
+float32 cmd_steer # -1.0 = full left, 1.0 = full right
 float32 cmd_steer_target_ramp_time_s
