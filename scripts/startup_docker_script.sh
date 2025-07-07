@@ -6,6 +6,8 @@ docker run -it \
   -e DISPLAY=$DISPLAY \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v ~/Desktop/carpi:/carpi \
-  --device=/dev/rrc \
+  -v /dev/rrc:/dev/rrc \
   --group-add=$(getent group dialout | cut -d: -f3) \
+  --group-add=$(getent group input | cut -d: -f3) \
+  --privileged \
   ros-dev-custom

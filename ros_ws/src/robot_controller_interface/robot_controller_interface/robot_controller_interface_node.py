@@ -78,6 +78,7 @@ class RobotControllerInterface(Node):
         msg = RobotSensorTelemetry()
         # IMU code provided by HiWonder and adapted here
         ax, ay, az, gx, gy, gz = imu_data
+        msg.imu.header.stamp = self.get_clock().now().to_msg()
         msg.imu.linear_acceleration.x = ax * GRAVITY_M_PER_S_SQUARED
         msg.imu.linear_acceleration.y = ay * GRAVITY_M_PER_S_SQUARED
         msg.imu.linear_acceleration.z = az * GRAVITY_M_PER_S_SQUARED

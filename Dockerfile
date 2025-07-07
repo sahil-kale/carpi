@@ -32,3 +32,8 @@ WORKDIR /carpi
 
 # Install Python dependencies
 RUN pip install --user -r /tmp/requirements.txt
+
+# COPY ros_ws/src/robot_controller_interface/misc/setup_rrc_udev.sh  /setup_rrc_udev.sh
+
+SHELL ["/bin/bash", "-c"]
+CMD ["bash", "-c", "source /ros_entrypoint.sh && exec bash"]

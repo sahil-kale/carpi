@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ -e /dev/rrc ]; then
+    echo "✅ /dev/rrc already exists. Skipping udev setup."
+    ls -l /dev/rrc
+    exit 0
+fi
+
+echo "🔧 /dev/rrc not found. Applying udev rule..."
+
 # Create udev rule
 sudo tee /etc/udev/rules.d/99-rrc.rules > /dev/null <<EOF
 SUBSYSTEM=="tty", ENV{ID_VENDOR_ID}=="1a86", ENV{ID_MODEL_ID}=="55d4", ENV{ID_SERIAL_SHORT}=="596F002370", SYMLINK+="rrc"
