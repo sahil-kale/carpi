@@ -9,6 +9,11 @@ RUN apt update && apt install -y \
     ros-humble-demo-nodes-py \
     ros-humble-rviz2 \
     ros-humble-foxglove-bridge \
+    ros-humble-image-transport \
+    ros-humble-image-publisher \
+    libgflags-dev \
+    nlohmann-json3-dev \
+    libgoogle-glog-dev \
     && apt clean
 
 # Accept user and group IDs as build args, with defaults
