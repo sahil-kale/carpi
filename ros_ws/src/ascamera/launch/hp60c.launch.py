@@ -25,6 +25,21 @@ def generate_launch_description():
         ],
         remappings=[]
     )
+    
+    cam_link_0_transform = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        #arguments = ['0', '0', '0', '-1.57', '0', '-1.57', 'depth_cam', 'ascamera_camera_link_0']
+        arguments = ['0', '0', '0', '-1.57', '0', '-1.57', 'depth_cam', 'ascamera_hp60c_camera_link_0']
+        )
+        
+    camera_0_transform = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        #arguments = ['0', '0', '0', '-1.57', '0', '-1.57', 'depth_cam', 'ascamera_camera_link_0']
+        arguments = ['0', '0', '0', '-1.57', '0', '-1.57', 'depth_cam', 'ascamera_hp60c_color_0']
+        )
+
 
     # ascamera_node2 = Node(
     #     namespace= "ascamera_hp60c_2",
@@ -47,6 +62,8 @@ def generate_launch_description():
     # )
 
     ld.add_action(ascamera_node)
+    ld.add_action(cam_link_0_transform)
+    ld.add_action(camera_0_transform)
     # ld.add_action(ascamera_node2)
 
     return ld
