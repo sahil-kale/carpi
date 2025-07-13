@@ -14,14 +14,14 @@ def generate_launch_description():
         parameters=[
             {"usb_bus_no": -1},
             {"usb_path": "null"},
-            {"confiPath": "/home/yahboom/ascam_ros2_ws/src/ascamera/configurationfiles"},
-            {"color_pcl": False},
+            {"confiPath": "/carpi/ros_ws/src/ascamera/configurationfiles"},
+            {"color_pcl": True},
             {"pub_tfTree": True},
             {"depth_width": 640},
             {"depth_height": 480},
             {"rgb_width": 640},
             {"rgb_height": 480},
-            {"fps": 25},
+            {"fps": 15},
         ],
         remappings=[]
     )
