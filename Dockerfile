@@ -11,6 +11,7 @@ RUN apt update && apt install -y \
     ros-humble-foxglove-bridge \
     ros-humble-image-transport \
     ros-humble-image-publisher \
+    ros-humble-rtabmap-ros \
     libgflags-dev \
     nlohmann-json3-dev \
     libgoogle-glog-dev \
